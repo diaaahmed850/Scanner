@@ -24,7 +24,9 @@ def scanner(lines):
         for symbol in Symbols:
             if symbol in line:
                 #negative numbers has problem
-                if symbol == '=' and line[line.find('=')-1]==':':
+                if symbol == '-' and (line[line.find('-')-1]=='=' or line[line.find('-')-2]=='='):
+                    pass
+                elif symbol == '=' and line[line.find('=')-1]==':':
                     pass
                 else:
                     line=line.replace(symbol,' '+symbol+' ')
@@ -39,12 +41,13 @@ def scanner(lines):
             if token in reservedWords:
                 print(token+" >> RESERVED", file=out)
                 output_scanner.insert(INSERT,token+" >> RESERVED"+'\n')
+            elif token.lstrip('-').isdigit():
+                print(token+" >> NUMBER", file=out)
+                output_scanner.insert(INSERT,token+" >> NUMBER"+'\n')
             elif token in Symbols:
                 print(token+" >> "+symbol_mapping[token], file=out)
                 output_scanner.insert(INSERT,token+" >> "+symbol_mapping[token]+'\n')
-            elif token.isdigit():
-                print(token+" >> NUMBER", file=out)
-                output_scanner.insert(INSERT,token+" >> NUMBER"+'\n')
+           
             elif re.match('^(?=.*[a-zA-Z])',token):
                 print(token+" >> IDENTIFIER", file=out)
                 output_scanner.insert(INSERT,token+" >> IDENTIFIER"+'\n')

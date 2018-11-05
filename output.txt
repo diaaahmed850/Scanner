@@ -8,7 +8,7 @@ x >> IDENTIFIER
 then >> RESERVED
 fact >> IDENTIFIER
 := >> assign
-1 >> NUMBER
+-1 >> NUMBER
 ; >> semicolon
 repeat >> RESERVED
 fact >> IDENTIFIER
